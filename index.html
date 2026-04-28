@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wordle+</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-side"></div>
+    <h1 class="title">Wordle<span class="title-plus">+</span></h1>
+    <div class="header-side header-side--end">
+      <button
+        id="theme-toggle"
+        class="theme-toggle"
+        type="button"
+        aria-label="Toggle color theme"
+        title="Toggle theme"
+      >
+        <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+        <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <main class="main">
+    <div class="board-wrapper" id="board-wrapper">
+      <div class="board" id="board" role="grid" aria-label="Guess grid"></div>
+    </div>
+
+    <div class="keyboard" id="keyboard" role="group" aria-label="On-screen keyboard">
+      <div class="key-row">
+        <button class="key" data-key="q" type="button">q</button>
+        <button class="key" data-key="w" type="button">w</button>
+        <button class="key" data-key="e" type="button">e</button>
+        <button class="key" data-key="r" type="button">r</button>
+        <button class="key" data-key="t" type="button">t</button>
+        <button class="key" data-key="y" type="button">y</button>
+        <button class="key" data-key="u" type="button">u</button>
+        <button class="key" data-key="i" type="button">i</button>
+        <button class="key" data-key="o" type="button">o</button>
+        <button class="key" data-key="p" type="button">p</button>
+      </div>
+      <div class="key-row">
+        <span class="key-spacer key-spacer--half"></span>
+        <button class="key" data-key="a" type="button">a</button>
+        <button class="key" data-key="s" type="button">s</button>
+        <button class="key" data-key="d" type="button">d</button>
+        <button class="key" data-key="f" type="button">f</button>
+        <button class="key" data-key="g" type="button">g</button>
+        <button class="key" data-key="h" type="button">h</button>
+        <button class="key" data-key="j" type="button">j</button>
+        <button class="key" data-key="k" type="button">k</button>
+        <button class="key" data-key="l" type="button">l</button>
+        <span class="key-spacer key-spacer--half"></span>
+      </div>
+      <div class="key-row">
+        <button class="key key--wide" data-key="enter" type="button">enter</button>
+        <button class="key" data-key="z" type="button">z</button>
+        <button class="key" data-key="x" type="button">x</button>
+        <button class="key" data-key="c" type="button">c</button>
+        <button class="key" data-key="v" type="button">v</button>
+        <button class="key" data-key="b" type="button">b</button>
+        <button class="key" data-key="n" type="button">n</button>
+        <button class="key" data-key="m" type="button">m</button>
+        <button class="key key--wide" data-key="backspace" type="button" aria-label="Backspace">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="key-icon">
+            <path d="M22 3H7a1 1 0 0 0-.8.4L1 11.4a1 1 0 0 0 0 1.2l5.2 8a1 1 0 0 0 .8.4h15a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-2.6 13.6L18 18l-3.5-3.5L11 18l-1.4-1.4L13.1 13 9.6 9.5 11 8.1l3.5 3.5L18 8.1l1.4 1.4L15.9 13l3.5 3.6z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <a
+      class="footer-link"
+      href="https://github.com/ImInsideYourComputer/WordlePlus"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Wordle+ on GitHub"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="footer-icon">
+        <path d="M12 .5C5.73.5.67 5.56.67 11.83c0 5.01 3.24 9.26 7.74 10.76.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.15.68-3.81-1.34-3.81-1.34-.52-1.31-1.27-1.66-1.27-1.66-1.04-.71.08-.69.08-.69 1.15.08 1.75 1.18 1.75 1.18 1.02 1.74 2.67 1.24 3.32.95.1-.74.4-1.24.72-1.53-2.51-.29-5.16-1.26-5.16-5.59 0-1.24.44-2.25 1.17-3.04-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.15 1.16.91-.25 1.89-.38 2.86-.39.97 0 1.95.13 2.86.39 2.18-1.47 3.14-1.16 3.14-1.16.62 1.57.23 2.73.11 3.02.73.79 1.17 1.8 1.17 3.04 0 4.34-2.66 5.3-5.18 5.58.41.35.78 1.05.78 2.12 0 1.53-.01 2.76-.01 3.13 0 .3.21.66.79.55 4.5-1.5 7.74-5.75 7.74-10.76C23.33 5.56 18.27.5 12 .5z" />
+      </svg>
+      <span>ImInsideYourComputer/WordlePlus</span>
+    </a>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
