@@ -24,6 +24,17 @@
   const FLIP_STAGGER  = 200;   // ms between cells
   const WIN_TITLES = ["Genius", "Magnificent", "Impressive", "Splendid", "Great", "Phew"];
 
+  // Right-pointing arrow; CSS rotates it for up/down variants.
+  const ARROW_SVG =
+    '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+    '<path d="M5 12h14M13 6l6 6-6 6"/>' +
+    '</svg>';
+  const DIR_LABELS = {
+    up:    "Guess was shorter than the target word",
+    down:  "Guess was longer than the target word",
+    right: "Guess matched the target word length",
+  };
+
   /* ---------- Theme ---------- */
   const root = document.documentElement;
   const themeBtn = document.getElementById("theme-toggle");
@@ -117,6 +128,8 @@
 
   /** @type {HTMLDivElement[][]} */
   const rows = [];
+  /** @type {HTMLDivElement[]} */
+  const indicators = [];
   let currentRow = 0;
   let currentCol = 0;
   let busy = false;
@@ -128,7 +141,18 @@
     return cell;
   };
 
+  const makeIndicator = () => {
+    const ind = document.createElement("div");
+    ind.className = "row-indicator";
+    ind.setAttribute("aria-hidden", "true");
+    return ind;
+  };
+
   const appendRow = () => {
+    const indicator = makeIndicator();
+    board.appendChild(indicator);
+    indicators.push(indicator);
+
     const rowCells = [];
     for (let c = 0; c < COLUMNS; c++) {
       const cell = makeCell();
@@ -137,6 +161,16 @@
     }
     rows.push(rowCells);
     return rowCells;
+  };
+
+  const setRowIndicator = (rowIdx, dir) => {
+    const ind = indicators[rowIdx];
+    if (!ind) return;
+    ind.classList.remove("dir-up", "dir-down", "dir-right", "shown");
+    ind.innerHTML = ARROW_SVG;
+    ind.classList.add(`dir-${dir}`, "shown");
+    ind.setAttribute("aria-label", DIR_LABELS[dir] || "");
+    ind.removeAttribute("aria-hidden");
   };
 
   const setActiveCell = (rowIdx, colIdx) => {
@@ -167,6 +201,7 @@
   const clearBoard = () => {
     board.innerHTML = "";
     rows.length = 0;
+    indicators.length = 0;
     currentRow = 0;
     currentCol = 0;
   };
@@ -391,6 +426,11 @@
     }
 
     const results = evaluateGuess(word, game.target);
+    const dir =
+      word.length < game.target.length ? "up" :
+      word.length > game.target.length ? "down" :
+      "right";
+    setRowIndicator(currentRow, dir);
     await revealRow(currentRow, results);
     updateKeyboardColors(word, results);
     game.guesses++;
