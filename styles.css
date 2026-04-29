@@ -56,8 +56,9 @@ html[data-theme="dark"] {
   --scroll-thumb-hov: rgba(255, 255, 255, 0.40);
   --tile-fg:          var(--c-white);
 
-  --key-bg:           #545458;
-  --key-bg-hover:     #6a6a6e;
+  --key-bg:           #6a6a6e;
+  --key-bg-hover:     #7a7a7e;
+  --key-bg-absent:    #333336;
   --key-fg:           var(--c-white);
 }
 
@@ -395,6 +396,15 @@ html[data-theme="dark"] .icon-moon { display: none; }
 .key.correct { background: var(--c-green);  color: var(--c-white); }
 .key.present { background: var(--c-yellow); color: var(--c-white); }
 .key.absent  { background: var(--c-gray);   color: var(--c-white); }
+
+/* Dark theme: used (absent) keys use a deeper gray than the default key */
+html[data-theme="dark"] .key.absent {
+  background: var(--key-bg-absent);
+  color: var(--key-fg);
+}
+html[data-theme="dark"] .key.absent:hover {
+  background: var(--key-bg-absent);
+}
 
 /* ---------- Info bar / debug reveal ---------- */
 .info-bar {
